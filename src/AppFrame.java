@@ -3,7 +3,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.concurrent.ThreadLocalRandom; // random number generator
+import java.security.SecureRandom;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -33,6 +33,8 @@ public class AppFrame implements ActionListener, ChangeListener {
 
     private JFrame frame;
     private JPanel panel;
+
+    SecureRandom rand = new SecureRandom();
 
     public AppFrame() {
 
@@ -89,20 +91,20 @@ public class AppFrame implements ActionListener, ChangeListener {
         int charChooser = 0;
 
         for (int i = 0; i < passLength; i++) {
-            charChooser = ThreadLocalRandom.current().nextInt(1, 4+1);
+            charChooser = rand.nextInt(4) + 1;
 
             switch (charChooser) {
                 case 1:
-                   password += capitalLetters[ThreadLocalRandom.current().nextInt(0, capitalLetters.length)];
+                   password += capitalLetters[rand.nextInt(capitalLetters.length)];
                    break;
                 case 2:
-                   password += lowercaseLetters[ThreadLocalRandom.current().nextInt(0, lowercaseLetters.length)];
+                   password += lowercaseLetters[rand.nextInt(lowercaseLetters.length)];
                    break;
                 case 3:
-                   password += numbers[ThreadLocalRandom.current().nextInt(0, numbers.length)];
+                   password += numbers[rand.nextInt(numbers.length)];
                    break;
                 case 4:
-                   password += symbols[ThreadLocalRandom.current().nextInt(0, symbols.length)];
+                   password += symbols[rand.nextInt(symbols.length)];
                    break;
             }
         }
@@ -125,7 +127,6 @@ public class AppFrame implements ActionListener, ChangeListener {
                 Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clpbrd.setContents(stringSelection, null);
             }
-
         }
     }
 
