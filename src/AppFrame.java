@@ -134,6 +134,6 @@ public class AppFrame implements ActionListener, ChangeListener {
     public void stateChanged(ChangeEvent e) {
         passLength = passwordLength.getValue();
         passwordLengthField.setText(String.valueOf(passLength));
-        
+        passwordTextField.setText(generatePassword());
     }
 }
