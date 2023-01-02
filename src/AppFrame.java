@@ -9,7 +9,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
 public class AppFrame implements ActionListener, ChangeListener {
-
     private char capitalLetters[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
     private char lowercaseLetters[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     private char numbers[] = {'0','1','2','3','4','5','6','7','8','9'};
@@ -37,7 +36,6 @@ public class AppFrame implements ActionListener, ChangeListener {
     SecureRandom rand = new SecureRandom();
 
     public AppFrame() {
-
         frame = new JFrame();
 
         passwordLengthLabel = new JLabel("Password length");
@@ -57,7 +55,7 @@ public class AppFrame implements ActionListener, ChangeListener {
 
         passwordLabel = new JLabel("Password: ");
 
-        passwordTextField = new JTextField("Click button to generate password");
+        passwordTextField = new JTextField(generatePassword());
         passwordTextField.setEditable(false);
 
         copyButton = new JButton("Copy to clipboard");
@@ -65,7 +63,6 @@ public class AppFrame implements ActionListener, ChangeListener {
         copyButton.setBackground(new Color(122, 122, 122));
         copyButton.setForeground(Color.WHITE);
         copyButton.setFocusPainted(false);
-
             
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
@@ -84,7 +81,7 @@ public class AppFrame implements ActionListener, ChangeListener {
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(false);
-        }
+    }
 
     private String generatePassword() {
         password = "";
@@ -114,19 +111,13 @@ public class AppFrame implements ActionListener, ChangeListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == generateButton) {
             passwordTextField.setText(generatePassword());
         }
         else if (e.getSource() == copyButton) {
-            if (passwordTextField.getText().equals("Click button to generate password")) {
-                return;
-            }
-            else {
-                StringSelection stringSelection = new StringSelection(passwordTextField.getText());
-                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clpbrd.setContents(stringSelection, null);
-            }
+            StringSelection stringSelection = new StringSelection(passwordTextField.getText());
+            Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clpbrd.setContents(stringSelection, null);
         }
     }
 
